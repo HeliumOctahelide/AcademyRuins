@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/AcademyRuins/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/AcademyRuins/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/AcademyRuins/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/AcademyRuins/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/AcademyRuins/css/main.css">
+
+
+<link rel="stylesheet" href="/AcademyRuins/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com/AcademyRuins').hostname,
+    root: '/AcademyRuins/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="作者：Mark Rosewater 译者：Pa_Cha  原文地址：https:&#x2F;&#x2F;magic.wizards.com&#x2F;en&#x2F;articles&#x2F;archive&#x2F;making-magic&#x2F;nuts-bolts-filling-design-skeleton-2011-02-28 译文地址：https:&#x2F;&#x2F;tieba.baidu.com&#x2F;p&#x2F;4064392277 MTGCN公众号中没有找到此篇，但我有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【魔法设计院】螺母和螺栓 \#3：设计骨架的填充">
+<meta property="og:url" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/index.html">
+<meta property="og:site_name" content="大学院废墟">
+<meta property="og:description" content="作者：Mark Rosewater 译者：Pa_Cha  原文地址：https:&#x2F;&#x2F;magic.wizards.com&#x2F;en&#x2F;articles&#x2F;archive&#x2F;making-magic&#x2F;nuts-bolts-filling-design-skeleton-2011-02-28 译文地址：https:&#x2F;&#x2F;tieba.baidu.com&#x2F;p&#x2F;4064392277 MTGCN公众号中没有找到此篇，但我有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/1.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/2.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/3.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/4.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/5.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/6.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/7.jpg">
+<meta property="article:published_time" content="2011-02-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-26T03:40:42.042Z">
+<meta property="article:tag" content="游戏设计">
+<meta property="article:tag" content="魔法设计院">
+<meta property="article:tag" content="螺母和螺栓（基本要素）">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>【魔法设计院】螺母和螺栓 \#3：设计骨架的填充 | 大学院废墟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/AcademyRuins/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大学院废墟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">其间秘密曾雕琢出不二奇械。而今螃蟹捞捡其间瓦砾来装饰外壳。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/AcademyRuins/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/AcademyRuins/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/AcademyRuins/nuts-and-bolts-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/AcademyRuins/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大学院废墟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【魔法设计院】螺母和螺栓 \#3：设计骨架的填充
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2011-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2011-02-28T00:00:00+08:00">2011-02-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-26 11:40:42" itemprop="dateModified" datetime="2020-05-26T11:40:42+08:00">2020-05-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作者：Mark Rosewater</p>
+<p>译者：Pa_Cha </p>
+<p>原文地址：<a href="https://magic.wizards.com/en/articles/archive/making-magic/nuts-bolts-filling-design-skeleton-2011-02-28" target="_blank" rel="noopener">https://magic.wizards.com/en/articles/archive/making-magic/nuts-bolts-filling-design-skeleton-2011-02-28</a></p>
+<p>译文地址：<a href="https://tieba.baidu.com/p/4064392277" target="_blank" rel="noopener">https://tieba.baidu.com/p/4064392277</a></p>
+<p>MTGCN公众号中没有找到此篇，但我有在MTGCN的和讯博客里看到此篇的印象，应为MTGCN所译。感谢贴吧用户“萨塔拉-维亚”对此篇的存档，感谢度娘没吞掉此篇中的某些段落（就像接下来的几篇那样）。</p>
+<HR>
+
+<p>我每年都会写一篇名为“螺母和螺栓”的文章。这一系列的文章将为大家介绍万智牌不为人知的设计艺术和设计策略。我在这些文章中花大篇幅讲述了设计者在设计一个卡牌系列时所应具有的直感及创意洞察力。不仅如此，在设计工作中还有许多枝节问题需要注意。总之，螺母和螺栓专栏会涵盖所有这些内容。</p>
+<p>我在2010年撰写的螺母和螺栓专栏文章介绍了卡牌代码。我又在接下来一篇文章中解释了如何利用这些卡牌代码来创建设计骨架。那么今天我就根据上篇文章最后创建好的设计骨架来进行填充（这是一个位于三系列环境中间位置的小系列,我们已经完成所有普通牌的设计）：</p>
+<p>CW01 – 生物, 小号<br>CW02 – 生物, 小号, 飞行, 搅坟<br>CW03 – 生物, 小号, 先攻<br>CW04 – 生物, 小号, 闪现, 进场获得生命<br>CW05 – 生物, 中号, 警戒<br>CW06 – 生物, 中号, 飞行<br>CW07 – 法术 – 制造衍生物, 飞行<br>CW08 – 瞬间, 力量膨胀<br>CW09 – 瞬间, 结界去除<br>CW10 – 结界, 生物去除<br>CU01 – 生物, 小号, 飞行,<br>CU02 – 生物, 小号, 帷幕<br>CU03 – 生物, 中号, 飞行<br>CU04 – 生物, 大号<br>CU05 – 瞬间, 硬康, 搅坟<br>CU06 – 瞬间, 软康<br>CU07 – 瞬间, 回手<br>CU08 – 法术, 抓牌<br>CU09 – 法术<br>CU10 – 结界, 灵气, 生物去除<br>CB01 – 生物, 小号<br>CB02 – 生物, 小号, 飞行<br>CB03 – 生物, 小号, 死触, 搅坟<br>CB04 – 生物, 中号, 威吓<br>CB05 – 生物, 中号, 进场起死回生<br>CB06 – 生物, 中号<br>CB07 – 瞬间, 生物去除, 搅坟<br>CB08 – 法术, 弃牌<br>CB09 – 法术, 吸生物血<br>CB10 – 结界, 灵气, 正面异能, 搅坟<br>CR01 – 生物, 小号 – 进场直接对牌手造成伤害<br>CR02 – 生物, 小号, 先攻<br>CR03 – 生物, 小号<br>CR04 – 生物, 中号, 敏捷<br>CR05 – 生物, 中号, 践踏<br>CR06 – 瞬间 – 直接对生物造成伤害<br>CR07 – 瞬间 – 直接对两者造成伤害<br>CR08 – 瞬间 – 力量膨胀<br>CR09 – 法术 – 惊慌, 搅坟<br>CR10 – 结界, 灵气, 正面异能<br>CG01 – 生物, 小号, 搅坟, 进场神器/结界去除<br>CG02 – 生物, 小号, 重生<br>CG03 – 生物, 小号, 死触<br>CG04 – 生物, 中号, 延势, 搅坟<br>CG05 – 生物, 中号<br>CG06 – 生物, 中号<br>CG07 – 生物, 大号, 践踏<br>CG08 – 瞬间, 力量/防御力膨胀<br>CG09 – 法术, 获得生命<br>CG10 – 结界, 灵气, 正面异能<br>CA01 – 生物, 中号<br>CA02 – 牺牲效果, 法术力相关<br>CA03 – 横置异能, 法术力相关<br>CA04 – 武具, 力量/防御力膨胀<br>CA05 – 武具, 躲避式异能<br>CL01 – 产W<br>CL02 – 产U<br>CL03 – 产B<br>CL04 – 产R<br>CL05 – 产G</p>
+<p>当一个系列的卡牌填充工作进行到此的时候，就可以开始对局测试了。如果您尚未阅读螺母和螺栓专栏的前两篇文章（尤其是上一篇关于设计骨架的文章）的话，我强烈建议您先去读一下。本文是基于您了解前两篇文章内容的前提下编写的。</p>
+<p>在开始介绍如何填充设计骨架之前，我想再花时间强调一下设计骨架的作用。</p>
+<h2 id="设计骨架像是一份草图，而不是一张填色图片"><a href="#设计骨架像是一份草图，而不是一张填色图片" class="headerlink" title="设计骨架像是一份草图，而不是一张填色图片"></a>设计骨架像是一份草图，而不是一张填色图片</h2><p>由于设计骨架会显示出每张牌的位置需要什么样的单卡，因此它很容易让人产生把卡牌对号入座的冲动。可实际上设计骨架并不是这样用的。对于设计师来说，设计骨架是一个用来监视卡牌系列整体感的工具。我之所以将其比作一份草图，就是因为设计骨架的作用就像草图对于画师们的作用一样。</p>
+<p><img src="1.jpg" alt=""></p>
+<p>举例来说，对于每张万智牌，我们都会要求画师提交一份草图。为什么呢？因为我们想了解画师对自己将画出这张牌的大体想法是怎样的。草图有助于画师在了解整幅图的同时，激发许多相关信息以便使他在正式作画前进行思考。所以说草图并不是最终画作的简略微缩版本。画师们是不会把草图照搬到正式画作上去的。</p>
+<p>草图可以帮助画师在作画时的一些细节方面做出重大决定。它可以帮助画师决定从哪里开始画起。在正式作画过程中，画师常常会意识到一些此前从未想到过的问题。也许草图中的某些信息可以启发画师创造出一些他未曾预料到的东西。总之，画师在正式作画时的思维必须要处于一种完全自由开放的状态。草图之所以很重要，就是因为如果没有一个对画作的整体感觉，画师是没法开始作画的。</p>
+<p>设计骨架也很相似。如果你把完成后的卡牌文档和设计骨架进行对比的话，确实能发现前者是从后者演变而来的。但同时你也会发现，完成后的卡牌文档有着许多它自己的独特之处。总之在我们开始填充设计骨架前，我希望大家能够了解上述原则。</p>
+<p>既然已经弄清了设计骨架的用法，下面就让我们开始填充它吧。</p>
+<h2 id="第一步：从普通牌入手"><a href="#第一步：从普通牌入手" class="headerlink" title="第一步：从普通牌入手"></a>第一步：从普通牌入手</h2><p>无论哪个系列，我所设计出的第一张牌都是普通牌。这是为什么呢？因为我们在前期设计中所采用方法被称作“理念验证”。我已经说过好几次了，人们总会高估设想的价值。没错，一个绝好的设想的确很有价值，但这对于一个设计师来说并非最有价值的元素。应该说，对于一个绝好设想的成功执行才是最具价值的。</p>
+<p><img src="2.jpg" alt=""></p>
+<p>前期设计的工作重点就是确定如何执行你的相关设想。R&amp;D 一般会给我和我的团队几个月的时间来确定工作内容。但在这期间我必须定时提交理念验证书（如果我是首席设计师的话）。也就是说，我要把自己的那些“疯狂设想”付诸万智牌实卡。而这个转化过程的目标则是那些普通牌。为什么普通牌如此重要呢？因为它们是一个卡牌系列的生命。数量众多的普通牌在一个系列中占据着很大比例。我经常这样说：如果一个系列的主题没有在普通牌中有所体现的话，那它就称不上是这个系列的主题。</p>
+<p>我们之所以率先做出普通牌，就是为了验证这些普通牌能否承载系列主题。在把普通牌都设计出来前，我们无法确认设计团队所希望达到效果是否切实可行。我将普通牌作为整个系列设计工作的开始也是为了验证是否可以通过它们以最简单、最灵活地方式来体现系列主题。</p>
+<h2 id="第二步：从设计难点入手"><a href="#第二步：从设计难点入手" class="headerlink" title="第二步：从设计难点入手"></a>第二步：从设计难点入手</h2><p><img src="3.jpg" alt=""></p>
+<p>您可能已经听说了，第二届设计师大赛马上就要落下帷幕了。（Ethan Fleischer、 Shawn Main和Scott Van Essen将前往威世智总部展开最后的角逐。决赛将在3月7号周一举行，比赛内容包括设计挑战和一系列被称为The Gauntlet的面试环节。欢迎关注我推特上的有关跟进报道。）</p>
+<p>如果您一直在关注第二届设计师大赛或者对几年前举行的第一届比赛还有印象的话，就会发现，我为参赛者们设置的挑战项目都是让他们在规定条件极其受限的情况下进行设计。因为设计工作中最重要的一项技能就是去填补那些有很多限制条件的“空洞”。</p>
+<p>这一点在设计骨架的填充过程中体现的非常明显。每当一张单卡被设计出来后，都相当于为系列中其他卡牌设定了某些限制。比如说，我设计出了一张可以进场获得生命的白色生物。那么这就意味着我不能再做出一张能够让牌手获得生命的白色普通单卡了（除非这个系列的主题或副主题就是获取生命）。任何一个选择都会对你其他的选择构成影响。基于这个原因，我们就需要从设计骨架中填充难度最大的部分开始做起。</p>
+<p>上述这个规则也可以看做是另一个我们从普通牌开始入手的原因。普通牌是具有的限制是最多的。可以不客气地讲，它们是设计起来最有难度的单卡。那么如何确定设计难点是什么呢？这取决于以下几点：</p>
+<p><strong>关注点是什么？</strong> 一个出彩的卡牌系列很重要的一点就是要确保设计者希望体现系列特点的部分能够成为玩家们的关注点。而且这个关注点还要担起吸引玩家的作用。做到这一点最有效的方式就是让那些最好用的咒语——设计质量和强度均属上乘的咒语能够体现系列主题。鉴于这一点的重要性，以及要让这些咒语拥有最大的发挥空间，它们就是需要我们去率先入手的设计难点。</p>
+<p><strong>新鲜点是什么？</strong> 最难做的事清就是去设计那些从未涉足的内容。新鲜设计元素所具有的限制往往在其首次被设计成形前是无法预知的。鉴于此，一个新鲜的设计元素，尤其是新机制往往都是一个好的入手点。</p>
+<p><strong>最具限制性的部分是什么？</strong> 并非每个设计元素的地位都是平等的。比如说多色卡牌就拥有比单色卡牌更多的限制性。它们需要符合两种颜色的特点，而非一种。一张单卡所承载的限制越多，设计起来的难度就越大。</p>
+<p><strong>五色卡组中都包含了什么？</strong> 严格来说五色卡组也属于限制性的范畴。但因其在设计中的出现频率很高，所以我把它单列了出来。每有一张牌被设计出来，它都会对所有其他牌造成限制。这一点在设计五色卡组时体现得格外明显。每个卡组中的第一张牌都会规定这个卡组所含单卡的内容设置。而这种设置的所带来的限制会随着卡组内卡牌数量的增加而愈发严格。倘若不提前规划好，将很容易出现在填充五张卡牌位置的过程中卡壳的情况。</p>
+<p>我虽然不能确切告诉大家设计工作中的最难点是什么。但我可以确定的一点就是，如果不尽早着手设计对上述几种卡牌的话，将很可能在之后的设计工作中遇到无法解决的难题。创建设计骨架就给了我们提前观察系列中每张卡牌所处的地位，以及规划下一步设计工作的机会。毕竟提前制定好工作路线，将避免走进设计工作的死胡同。</p>
+<h2 id="第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档"><a href="#第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档" class="headerlink" title="第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档"></a>第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档</h2><p><img src="4.jpg" alt=""></p>
+<p>这一步看起来非常理所应当。但我就发现很多新手设计师在不断设计新牌，以期能够能找到最适合某个设计空洞的选择。请不要这么做。只要某张牌达到了让你喜欢的程度，就把它加入设计骨架吧。因为有一点大家需要牢记：你是可以对设计骨架中的卡牌进行更换的。如果有一张更适合某个位置的卡牌被设计出来的话，就可以用它更换已有的某张牌。总之，填充设计骨架很大程度上就一个卡牌更新的过程。</p>
+<p>一个非常好用小技巧是这样的：如果同时有两张牌都符合同一个卡牌位置，而你又不确定哪一张更好。那么就将这两张卡牌都放进这个位置。而当你团队的其他成员发现两张拥有相同卡牌代码的单卡时就会明白，你是认为这两张牌都符合这个位置的要求。于是他们会帮你决定最终留下哪张牌。或者，你也可以通过对局测试来最终确定留下哪张牌。</p>
+<p>如果你卡牌系列是由一个团队和非一个人来完成的话，很重要的一点就是要让团队中的每一个成员都能时刻了解设计工作的进展情况。在威世智，我们使用着一个叫做“多重宇宙”的数据共享平台。我在填充设计骨架的同时，设计团队的其他成员不仅可以看到我新添加了哪些内容，而且还可以有针对性地进行留言。</p>
+<p>我一直强调将新卡牌添加进设计骨架赶早不赶晚的原因就是它们能帮助你确定哪些内容是正确的。你的团队会对这些新卡牌进行讨论或对局测试，从而推进设计工作的进行。虽然这些卡牌可能并不是最终版本，甚至可能不会进入这个系列的最终单卡名单，但它们会让这个系列的设计工作获益。总之我们要让这个阶段的卡牌设计文档保持不断更新的状态。每个位置上的卡牌都应该被视为一个可以被更好单卡替代的基准坐标。</p>
+<p>要想成为一位好作家，最好的办法就是去更多地去写作。我感觉这种说法也适用于卡牌设计。如果你想在卡牌设计方面取得长足的进步，就应该多去设计一些单卡。其实设计一个卡牌系列的过程就是设计能力成长的过程。一个系列会因为拥有更多专为它主题而设计出的单卡而变得更好。即便你的某个想法最后被证明是行不通的，那么它也会成为指引你走上正确道路的铺路石。</p>
+<h2 id="第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡"><a href="#第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡" class="headerlink" title="第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡"></a>第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡</h2><p><img src="5.jpg" alt=""></p>
+<p>有时你会发现一些单卡确实不适合这个系列中的那个位置。如果这样的话就不要将它列入卡牌文档。倘若实在找不到一个可以让这张牌有所作为的位置的话，就将它放弃吧。我的意思是千万不要削足适履。它在设计骨架中出现的目的就是提醒我们究竟需要什么样的卡牌。事实上，一张单看上去非常棒的单卡很容易左右你心中对原本所需单卡的要求。在卡牌文档中找不到一个适合某张牌的位置，就说明设计骨架在告诉你这张牌并不适合你正在设计的这个系列。我常会对设计师们说的一句话就是：“一张好牌总会发光的。如果你真想看到它被印出来的话，就别把它强塞到某个系列里去。”</p>
+<p>我虽然建议您把这些不适合的卡牌剔除出去，但我同时也建议您能够继续跟踪关注它们。因为一个卡牌系列会随着设计的进展而不断发生变化，也许某张牌此时不适合这个系列，但时常用更新中的卡牌系列需求来衡量它们，也许一个适合这些卡牌的位置就会出现。在R&amp;D，我们通常会把这些卡牌归入“99位”之中。也就是说它们虽然不会被列入卡牌文档，但我们也可以在一个特定的地方随时查找到它们。在对局测试中不会用到“99位”中的那99张单卡，但我们会一直对它们保持跟踪关注的状态，以备设计后期的不时之需。</p>
+<p>相信我今天给出的这些件建议会让很多设计者感到难以接受。为什么不能把一张好牌加入到系列中去呢？一张好牌难道不会让这个系列变得更好吗？关键问题还是我已经提到多次了的系列主题。一张单卡的重要性要远逊于整个系列。如果一张单卡不能更好地体现系列主题，那么它在这个系列中就是弊大于利。或许导致卡牌系列设计思路跑偏的最普遍原因就是设计者对于某一张牌或几张牌、或某个机制过于喜爱，以致因此做出了错误的选择。 决定把你所钟爱的一张牌剔除卡牌系列固然有些艰难，但这却是成为一名优秀卡牌设计师的必经之路。</p>
+<h2 id="第五步：要敢于向设计骨架中添加内容"><a href="#第五步：要敢于向设计骨架中添加内容" class="headerlink" title="第五步：要敢于向设计骨架中添加内容"></a>第五步：要敢于向设计骨架中添加内容</h2><p><img src="6.jpg" alt=""></p>
+<p>我之前提到设计骨架就像是一副草图。在你开始正式作画时往往会突然意识到你在草图中遗漏了一些东西。设计卡牌系列时也常会发生你突然想到某张牌非常适合这个系列，但在构建设计骨架时却将其遗漏掉了。这种情况和上述的几种情况还是有所不同的，之前只提到了那些根本不适合这个系列或不太适合特定位置的卡牌。总之，一旦你偶然发现一张非常适合所设计卡牌系列的单卡，不要犹豫地将它加入卡牌文档吧。</p>
+<p>如果卡牌文档空间不足了怎么办？你要去制造空间。（我将在下一部分详述一种制造空间的最好办法。）设计过程的一部分内容其实就是探索。当你发现了一些可以提升系列整体质量的内容时，就相当于发现了新的空间。这也是我把设计骨架比作的草图的原因之一。画师们在作画时也会加入草图中并未出现的一些元素。</p>
+<p>设计骨架的存在并不意味着你就不能再发现新的内容了。应该把它看成一个帮助你探索的工具。你在探索过程中将会领悟到更多相关领域的元素，并将这些新的元素应用到设计工作中去。设计骨架本身并不会帮你实现这些新元素，而是会提示你卡牌系列中开需要加入那些元素。</p>
+<h2 id="第六步：慎用具有双重目的的卡牌"><a href="#第六步：慎用具有双重目的的卡牌" class="headerlink" title="第六步：慎用具有双重目的的卡牌"></a>第六步：慎用具有双重目的的卡牌</h2><p><img src="7.jpg" alt=""></p>
+<p>我在每次设计工作中都会遇到一种情况。在我创造新牌来填充设计骨架时会发现一张此前没想到的单卡。那张单卡非常棒，于是我在设计骨架特地为它添加了一个位置。但这样做最终却造成了一个具有双重需求的卡牌位置的出现。这个位置的卡牌急需要是一个小号生物，又需要拥有找地能力。在卡牌设计方面的确有办法来迎合这个卡牌位置的需求，即可以设计一张进场触发找地效果的小生物；也可以设计一张可以牺牲自己去找地的小生物。总之，你可以找到各种有趣的方式来讲两种需求结合在一张卡牌之中。</p>
+<p>不过随着设计出卡牌数量的增加，你就会开始意识到这些具有双重目的的卡牌的重要性。由于它们在设计骨架中占据着关键的卡牌位置，所以它们的危险性很高。通常出现的问题会有以下几种：</p>
+<p><strong>复杂度过高：</strong>可以做两件事的单卡肯定要比只能做一件事的单卡复杂。虽说双重目的的单卡可以迎合设计骨架中的更多需求，但同时也会增加整个系列的复杂度。（接下来几个月里我将会发布一篇专门讲述复杂度在设计中重要程度的文章。）</p>
+<p><strong>稀有度问题：</strong>两个普通牌程度的效果混合在一起后通常就不再是一个普通牌程度的效果了。所以在混合两个效果之前，一定要确定它在混合后依旧符合你所期望的稀有度级别。</p>
+<p><strong>设计过于繁复：</strong>叙述简洁的双重目的卡牌无疑是最好的。但一张叙述繁复的单卡甚至可以毁掉整个系列。我对此的评判标准是这样的：这张牌给人的感觉究竟是一张单卡呢？还是两张单卡被绑到了一起？如果答案是前者，那么就请保留这张牌。如果是后者，就把它剔除这个系列吧。每个系列中都会有一到两张叙述繁复的单卡，但这已经是繁复单卡数量的极限了。你所设计的卡牌系列最理想的状态就是0繁复单卡。</p>
+<p>把双重目的单卡设计得不像是两张单卡绝对是设计能力提高的一项重要技能。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>今天的内容可真不少。填充设计骨架是一项非常复杂的工作，本文对此只是浅尝辄止。我对此给出的建议就是尽量多地去尝试填充您自己的卡牌设计骨架，相信这个填充过程会越来越成功的。如果您按着我今天给出的步骤对设计骨架进行填充的话，最终您会得到一个可以开始对局测试，并能将其转变为成品的卡牌系列了。</p>
+<p>欢迎大家通过电邮或推特发表对本文的反馈。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/AcademyRuins/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" rel="tag"># 游戏设计</a>
+              <a href="/AcademyRuins/tags/%E9%AD%94%E6%B3%95%E8%AE%BE%E8%AE%A1%E9%99%A2/" rel="tag"># 魔法设计院</a>
+              <a href="/AcademyRuins/tags/%E8%9E%BA%E6%AF%8D%E5%92%8C%E8%9E%BA%E6%A0%93%EF%BC%88%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0%EF%BC%89/" rel="tag"># 螺母和螺栓（基本要素）</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/AcademyRuins/nuts-and-bolts-2/" rel="prev" title="【魔法设计院】螺母和螺栓 \#2：设计骨架">
+      <i class="fa fa-chevron-left"></i> 【魔法设计院】螺母和螺栓 \#2：设计骨架
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/AcademyRuins/signature-cards-of-standard-in-ten-years/" rel="next" title="十年以来的标准赛标志单卡">
+      十年以来的标准赛标志单卡 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计骨架像是一份草图，而不是一张填色图片"><span class="nav-number">1.</span> <span class="nav-text">设计骨架像是一份草图，而不是一张填色图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：从普通牌入手"><span class="nav-number">2.</span> <span class="nav-text">第一步：从普通牌入手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步：从设计难点入手"><span class="nav-number">3.</span> <span class="nav-text">第二步：从设计难点入手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档"><span class="nav-number">4.</span> <span class="nav-text">第三步：每当设计出一张你喜欢的单卡，都可以将其加入卡牌文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡"><span class="nav-number">5.</span> <span class="nav-text">第四步：跟踪关注那些你很喜欢却不适合相应位置的单卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五步：要敢于向设计骨架中添加内容"><span class="nav-number">6.</span> <span class="nav-text">第五步：要敢于向设计骨架中添加内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第六步：慎用具有双重目的的卡牌"><span class="nav-number">7.</span> <span class="nav-text">第六步：慎用具有双重目的的卡牌</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">8.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/AcademyRuins/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/AcademyRuins/lib/anime.min.js"></script>
+  <script src="/AcademyRuins/lib/velocity/velocity.min.js"></script>
+  <script src="/AcademyRuins/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/AcademyRuins/js/utils.js"></script>
+
+<script src="/AcademyRuins/js/motion.js"></script>
+
+
+<script src="/AcademyRuins/js/schemes/muse.js"></script>
+
+
+<script src="/AcademyRuins/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
