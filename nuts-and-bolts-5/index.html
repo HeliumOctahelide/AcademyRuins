@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/AcademyRuins/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/AcademyRuins/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/AcademyRuins/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/AcademyRuins/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/AcademyRuins/css/main.css">
+
+
+<link rel="stylesheet" href="/AcademyRuins/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com/AcademyRuins').hostname,
+    root: '/AcademyRuins/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="作者：Mark Rosewater 译者：Pa_Cha 原文地址：https:&#x2F;&#x2F;magic.wizards.com&#x2F;en&#x2F;articles&#x2F;archive&#x2F;making-magic&#x2F;nuts-bolts-initial-playtesting-2013-02-11 译文地址：https:&#x2F;&#x2F;tieba.baidu.com&#x2F;p&#x2F;4064525857 此文被度娘吞掉了后半段，遗憾的是，全网都找不到剩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【魔法设计院】螺母和螺栓 ♯5：初始对局测试">
+<meta property="og:url" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/index.html">
+<meta property="og:site_name" content="大学院废墟">
+<meta property="og:description" content="作者：Mark Rosewater 译者：Pa_Cha 原文地址：https:&#x2F;&#x2F;magic.wizards.com&#x2F;en&#x2F;articles&#x2F;archive&#x2F;making-magic&#x2F;nuts-bolts-initial-playtesting-2013-02-11 译文地址：https:&#x2F;&#x2F;tieba.baidu.com&#x2F;p&#x2F;4064525857 此文被度娘吞掉了后半段，遗憾的是，全网都找不到剩">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/1.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/2.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/3.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/4.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/5.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/6.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/7.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/8.jpg">
+<meta property="og:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/9.jpg">
+<meta property="article:published_time" content="2013-02-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-26T07:55:36.521Z">
+<meta property="article:tag" content="游戏设计">
+<meta property="article:tag" content="魔法设计院">
+<meta property="article:tag" content="螺母和螺栓（基本要素）">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>【魔法设计院】螺母和螺栓 ♯5：初始对局测试 | 大学院废墟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/AcademyRuins/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大学院废墟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">其间秘密曾雕琢出不二奇械。而今螃蟹捞捡其间瓦砾来装饰外壳。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/AcademyRuins/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/AcademyRuins/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/AcademyRuins/nuts-and-bolts-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/AcademyRuins/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大学院废墟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【魔法设计院】螺母和螺栓 ♯5：初始对局测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2013-02-11 00:00:00" itemprop="dateCreated datePublished" datetime="2013-02-11T00:00:00+08:00">2013-02-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-26 15:55:36" itemprop="dateModified" datetime="2020-05-26T15:55:36+08:00">2020-05-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作者：Mark Rosewater</p>
+<p>译者：Pa_Cha</p>
+<p>原文地址：<a href="https://magic.wizards.com/en/articles/archive/making-magic/nuts-bolts-initial-playtesting-2013-02-11" target="_blank" rel="noopener">https://magic.wizards.com/en/articles/archive/making-magic/nuts-bolts-initial-playtesting-2013-02-11</a></p>
+<p>译文地址：<a href="https://tieba.baidu.com/p/4064525857" target="_blank" rel="noopener">https://tieba.baidu.com/p/4064525857</a></p>
+<p>此文被度娘吞掉了后半段，遗憾的是，全网都找不到剩下的那一半了。我有时间的话自己重新翻译吧。</p>
+<HR>
+
+<p>四年前，我开始撰写“螺母和螺栓”专栏。在这里我会带领大家一窥卡牌背后的设计技巧。首篇文章我介绍了卡牌代码，R&amp;D利用它来追踪卡牌文档中每张单卡。接着我又谈到了设计骨架，设计者会用它来规划卡牌系列的结构。之后我又讲了设计骨架的填充，填充工作是从普通牌开始的。去年我介绍了将其他稀有度卡牌填充进设计骨架的方法。今天就让我们继续下一步工作。刚刚发售的兵临古城想必对大家来说还是很新鲜的，那么我就准备用它作为本文的范例。（我会尽量照顾并不准备设计自己万智牌系列的读者们。）</p>
+<p><img src="1.jpg" alt=""></p>
+<h2 id="材料汇总"><a href="#材料汇总" class="headerlink" title="材料汇总"></a>材料汇总</h2><p>书接上回，我们已经搭建好设计骨架并将之填充完毕了。目前系列中的每个位置都已经对应有一张单卡了。我们工作难道还没有完成吗？恰恰相反，实际上我们的工作才刚刚开始。之所以要把系列中的每个位置填充上对应单卡，就是为了进行设计工作的下一步——对局测试。卡牌系列设计的特点就是要经历一个不断重复的过程，每次都要按照相同的步骤进行，而每一次都会做出一些补充性的改变。这个重复的过程包括以下步骤：</p>
+<ul>
+<li><ol>
+<li>制作单卡。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>对那些单卡进行对局测试。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>从对局测试中发现问题。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>根据所发现的问题对卡牌进行修改，有时需要做出新的单卡。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>再次回到第二步。</li>
+</ol>
+</li>
+</ul>
+<p>设计骨架之所以很重要，是因为你需要通过它来确定卡牌文档的结构，从而保证卡牌间在具有一定关联度和指向性的情况下开始对局测试。你的卡牌系列要具有某些特色内容。虽说这些内容不一定和系列最终成型时一样，但它们的存在是很重要的。毕竟你可以对已有内容进行修改，却很难无中生有。</p>
+<p>我还应该告诉大家的一点就是，在R&amp;D，我们通常会在普通牌设计完毕后开始上述重复的过程。进行全部由普通牌进行的对局测试足以让设计者确定设计工作的方向是否正确。我们会让设计骨架的填充和对局测试的重复过程同时进行。因为这样做有一定难度，所以在螺母和螺栓系列文章中我建议大家首先完成设计骨架的全部填充工作，再开始对局测试。因为填充过程有助于设计者更好地体会卡牌系列的整体思路。</p>
+<p><img src="2.jpg" alt=""></p>
+<p>今天就让我们使用已经被计出的全部普通牌来开始对局测试吧。我建议在前期设计就进行小规模对局测试，以免后期难以对系列进行修改。在R&amp;D，我会把对局测试范围限制在设计团队内部。在进行对局测试时，需要关注以下几点：</p>
+<ul>
+<li>趣味点是什么？这一点最为重要。此时对局环境还尚未成型，你只完成了一部分卡牌的设计。全普通牌对局测试只是试水性质的，你要通过它观察这个卡牌系列的潜力。要特别关注那些令你满意的单卡。</li>
+<li>无趣内容有哪些？这一点同样重要。倘若一张或几张单卡在对局测试中很无趣，你也要把它们记录下来。时刻牢记设计工作进行到这个环节时，没有任何内容是板上钉钉的。任何单卡、机制或主题都可能被剔除掉。</li>
+<li>已有卡牌是否实现了你的预期效果？对局测试最有价值的一点就是，它会让你对卡牌的认识不仅停留在“想”上，而是要付诸实践。一些效果会与你想象中有所不同。在实际对局中，一些卡牌要么效果过弱，要么毫无意义。</li>
+<li>是否存在使人困惑的内容？一种常见的情况就是，一些貌似简单的内容实际操作起来其实很复杂。有很多内容只有在对局中实际使用才会发现它所存在的问题。在全普通牌对局测试中，经常要作出的评价就是“把某张牌改成非普通牌（或更高稀有度）。”我总开玩笑说，很多专为普通牌位置设计的单卡最后却都没能成为普通牌。这不但在万智牌专业设计工作中很常见，相信您在自己的设计中也会遇到这类问题。</li>
+<li>系列主题是否得到了体现？我所秉持的设计理念之一就是“如果你的系列主题没有在普通牌上得到体现，那么它就称不上是主题。”在全普通牌对局测试中，我应该能够感受到整个系列的主题内容。如果感受不到的话，问题就大了。不过一般来说，你总会在测试中感受到一些内容，但可能会与预期有所偏差。如果这种偏差你能接受的话，也就不算是什么问题。</li>
+</ul>
+<p>为了帮助大家理解，我将以兵临古城的首次全普通牌对局测试为例。首先我先来介绍一下兵临古城系列中各个机制当时的样子：</p>
+<p><strong>欧佐夫</strong>：我们设计了一个每当生物死去便会触发效果的机制。可惜我忘了这个机制的名字了。<br><strong>底密尔</strong>：我们设计了一个磨牌库的机制，即“将牌库顶牌放入坟场，直到翻出一定数量的地牌。”磨牌库的效果后来虽然得到了保留，但并未被设定为一个关键词异能。<br><strong>古鲁</strong>：我们设计了一个名叫“凶暴（rowdy）”的机制，即每当生物对一位牌手造成战斗伤害便会与那位牌手所操控的一个生物互斗。<br><strong>波洛斯</strong>：就是大家最后看到的协战机制。<br><strong>析米克</strong>：我们当时采用的就是进化机制，只不过效果只会对生物的力量产生影响。</p>
+<p>头几次对局测试会反映出很多问题（为了加快速度，我把开始的几次对局测试放在一起来说）。进化和协战机制都很有趣。磨牌库机制对于热衷于以这种方式取胜的玩家来说是很有趣的，但对此浅尝辄止的玩家却会感到有些无趣。凶暴机制效果过强。欧佐夫的机制由于既令人困惑又不易进行配合，因此马上就被否决掉了。</p>
+<h2 id="宏观规划"><a href="#宏观规划" class="headerlink" title="宏观规划"></a>宏观规划</h2><p><img src="3.jpg" alt=""></p>
+<p>鉴于本文是“螺母和螺栓”专栏中的一篇，我还是需要带领大家回顾一下我曾在“Designing for”系列中提到过的一些内容。</p>
+<p>一个卡牌系列所包含机制的核心就是你设计工作中所围绕的机制元素。从本质上说，你只有在确定了某些需要优先考虑的内容后才会开始围绕它进行设计。这些优先考虑的内容之所以重要，是因为当你遇到两个相互冲突的设计方案时，可以去选择那个更贴合优先考虑内容的方案。以兵临古城为例，机制核心已经很明确了——公会，具体说就是前面提到的那五个（欧佐夫、底密尔、古鲁、波洛斯和析米克）。也就是说，首次对局测试的目的就是确定每个公会都能做些什么。这其中不仅包括公会机制，还有每个公会带给玩家的感觉。</p>
+<p>请记住您总应该从最难设计的部分开始入手，这样才会有尽量多的办法处理设计难点。在兵临古城中，公会首当其冲，那么公会专属机制自然就成了设计难点，因此它就是入手之处。</p>
+<p><img src="4.jpg" alt=""></p>
+<p>在第一阶段对局测试完成后，我会问自己如下几个问题：我是否已经找到了每个公会的专属机制？对析米克和波洛斯来说，答案是肯定的。对底密尔来说，答案是也许，因为我们还需要进行进一步的完善工作。对古鲁来说，我持怀疑态度，我们还需要与开发团队一起努力解决它效果过强的问题。对欧佐夫来说，答案是否定的。</p>
+<p>析米克和波洛斯的单卡可以开始下一步工作了，即在不考虑公会机制的前提下去审视其他普通牌。如何做到在填充设计骨架的同时与公会机制建立配合呢？举例来说，我准备设计一个绿色普通白板生物。在已知拥有进化机制的情况下， 我会有意识地把它设计得拥有高力量或高防御力。（此时进化效果已改为同时影响生物的力量和防御力。）通常情况下，一个4/1或1/5的绿色普通生物或许并没什么吸引力，但在一个拥有进化机制的系列里就变得非常有意思了。总之，关键要做到在观察设计骨架需求的同时，去思考是否能够同时迎合与公会机制配合的要求。</p>
+<p>对于底密尔来说，我必须找出让磨牌库机制与并没有很强磨牌库需求的套牌相兼容的办法。我采用的方法就是通过对系列骨架的观察，确定是否可以设计出既能满足现有需求，又与磨对手牌库效果相关的单卡。最后，我往系列中添加了一些与坟场中卡牌相关效果的单卡。这样一来，那些只带有些许磨牌库效果的底密尔套牌便也可以对此效果加以很好的利用。死亡将至就是我们为了达到这个目的而设计出的一张单卡。</p>
+<p><img src="5.jpg" alt=""></p>
+<p>对于古鲁机制的问题，我代表设计团队与Dave Humpherys（该系列的首席开发）进行了探讨。我要让他告诉其他开发人员，一定要意识到当前凶暴机制的危险性。Dave帮我调整了凶暴机制的费用，以使其更加平衡。在进行了几盘对局测试后，我们决定把凶暴改为“增幅击（kickboxing）”——另一个涉及互斗效果的机制（在生物释放时额外支付一个类似增幅的费用，则该生物在进场时与另一个生物互斗）。要知道在尝试修改古鲁机制的时候，我一直都着力于法术力费用的调整以使机制可行，却很少关注到它与其他卡牌混合后的效果。直到我认为这个机制可行后，才意识到专门再花时间为它设计支持性单卡完全不值得。</p>
+<p>至于欧佐夫，我们需要从头做起。和古鲁一样，我还是把主要精力集中在机制方面。这次我们尝试了一个名叫“消沉”的新机制，由Mark Gottlieb设计。带有消沉机制的非地永久物具有“每当该永久物下一次成为一个咒语的目标时，将其牺牲。”</p>
+<p>接下来一个问题就是，那些不包含公会机制的卡牌位置将由什么单卡来填充呢？答案就是基本单卡。当你已经很好掌控了卡牌系列的功能后，基本单卡的加入既可以让已有卡牌在对局中运作起来，也有助于发现卡牌系列中新的关注点。</p>
+<p>您肯定发现了，这个系列中的不同部分都在按不同的方式发生着改变。这完全没问题。卡牌系列的设计是一个不停变化的过程，因此每个部分不可能以相同的步调发生改变。至此，你就可以开始对卡牌系列的整体内在环境进行定义了。这个步骤应该从限制性最强的机制开始。请牢记，限制性是你的好朋友，选择上的局限经常可以帮助你更好地勾勒出每个机制都需要起到什么作用。</p>
+<p>举例来说，我们就花了很长时间来确定欧佐夫的作用。直到最后阶段，我们才意识到欧佐夫应该拥有一个倾向于生物和战斗的机制。这个想法最终指引我们找到了这个关于咒语释放的机制。</p>
+<h2 id="粘合剂"><a href="#粘合剂" class="headerlink" title="粘合剂"></a>粘合剂</h2><p><img src="6.jpg" alt=""></p>
+<p>如果说第一阶段是确定机制核心，第二阶段就是发现那些能够支持机制核心的卡牌。那么第三阶段按我的话说就是粘合阶段。我们还是以兵临古城威为例。</p>
+<p>经过了一番周折后我们终于为每个公会都设计了一个称心的的机制。一旦确定了公会关键词机制后，我们就可以尝试向骨架中填充可以与公会功能相配合的卡牌了。下面我再来说说那些可以同两个不同公会形成配合的单卡。最适合它们的位置无疑就是多色牌。</p>
+<p>我准备以白色为例。同沾白多色卡牌可以产生配合的公会是波洛斯和欧佐夫。我希望沾白卡牌中可以与这两个公会形成配合的单卡数量各占一半。也就是说，全部沾白普通单卡中能与波洛斯色组和欧佐夫色组很好互动的会各占25%。剩下的50%我会让它们能同时与这两个公会都有配合。这组比例成为另外几个颜色构思的指引，并可能会随着设计的推进而上下浮动。</p>
+<p>为什么设计只能与一个公会产生配合的单卡如此重要呢？为何不是每张多色牌都能同时与两个公会有配合呢？首先，这是不可能的；第二，这样做很重要，尤其在轮抓时要让牌手可以选到真正需要的单卡。把卡牌泛用度做得越低，它在轮抽时被其他玩家劫胡的可能性就越低。</p>
+<p><img src="7.jpg" alt=""></p>
+<p>在继续下一步前，我想强调的是，由于篇幅原因我对上述过程进行了简化。比如说，我们其实还为每个公会个指定了一个首选致胜手段和一个次选致胜手段。由于公会功能的多样性，这样便可以使偏爱某一公会的玩家每次都以不同的方式进行对战。</p>
+<p>对于前面提到的那个比例，我还想强调几点。第一，水印牌（那些与某个公会有紧密联系的单卡）的数量是可以达到50%的。但这类单卡虽然带有某个公会专属机制，但却并不意味着它在其他公会套牌中就没有用武之地。第二，还有一些单卡具有很强的泛用性，且并没有某个公会的专有特征。举例来说，白色就需要一张普通稀有度的结界去除单卡。那么这张牌显然就与波洛斯及欧佐夫没有什么直接联系，但每套牌却都会在特定情况下使用到它。这类单卡也许会对25/25/50的比例产生一些影响。</p>
+<p>对于前面提到的那个比例，我还想强调几点。第一，水印牌（那些与某个公会有紧密联系的单卡）的数量是可以达到50%的。但这类单卡虽然带有某个公会专属机制，但却并不意味着它在其他公会套牌中就没有用武之地。第二，还有一些单卡具有很强的泛用性，且并没有某个公会的专有特征。举例来说，白色就需要一张普通稀有度的结界去除单卡。那么这张牌显然就与波洛斯及欧佐夫没有什么直接联系，但每套牌却都会在特定情况下使用到它。这类单卡也许会对25/25/50的比例产生一些影响。</p>
+<p>正确设计机制核心很关键。设计正确的支持单卡也同样重要。但真正让一个卡牌系列出彩的则是做出那些正确的粘合剂单卡。假如做法正确的话，那些粘合剂单卡并不显眼。一些最好的粘合剂单卡正是那些不具有明确意图的卡牌。它们也许会向玩家展现你的某个设计方向，而玩家们也会逐渐发现它们的其他用途。正是这种探索发现的过程，会让这个游戏对玩家产生更强的吸引力。</p>
+<h2 id="The-Quirks-of-an-All-Common-Playtest"><a href="#The-Quirks-of-an-All-Common-Playtest" class="headerlink" title="The Quirks of an All-Common Playtest"></a>The Quirks of an All-Common Playtest</h2><p><img src="8.jpg" alt=""></p>
+<p>The reason I suggest starting with an all-common playtest is to ensure that your set is communicating its basic message at the core of the design. Remember that more than two-thirds of all the cards the players will see in Limited will be the commons. Common cards are the hardest to design, so I want to make sure you all put your time and energy first in making your commons sing. That said, there are a few quirks of an all-common playtest I want to point out:</p>
+<h3 id="1-It’s-Harder-to-Come-Back"><a href="#1-It’s-Harder-to-Come-Back" class="headerlink" title="#1: It’s Harder to Come Back"></a>#1: It’s Harder to Come Back</h3><p>There are things in Magic that we keep out of common. For example, we tend to avoid making common cards that can kill multiple creatures, especially permanents that either do it repeatedly or two-for-one the opponent by destroying something while also providing you with a resource (the most basic example is a creature with an “enters the battlefield” destruction/damage effect). These kinds of cards are what help players turn the game around. This means that all-common playtests don’t have much of a catch-up feature. If one player gets ahead, there is little the other player can do.</p>
+<h3 id="2-There’re-More-Stalemates"><a href="#2-There’re-More-Stalemates" class="headerlink" title="#2: There’re More Stalemates"></a>#2: There’re More Stalemates</h3><p>We also tend to scale creature size based on rarity. For example, only green and blue tend to have a creature 5/5 or greater at common. This smaller overall size makes for less gradation between creatures, making all creatures a lot closer in size. This leads to more stalemates because it’s a lot easier for creatures on both sides to be roughly the same size.</p>
+<h3 id="3-The-Game-Play-is-More-Generic"><a href="#3-The-Game-Play-is-More-Generic" class="headerlink" title="#3: The Game Play is More Generic"></a>#3: The Game Play is More Generic</h3><p>Another thing we scale by rarity is the quirkiness of the effect. Commons do more basic, straightforward things, while higher rarities tend to get to play more among the edges. This will make the game play more similar from game to game and will keep all games closer to the norm of a default game of Magic.</p>
+<h3 id="4-There’s-More-Repetition"><a href="#4-There’s-More-Repetition" class="headerlink" title="#4: There’s More Repetition"></a>#4: There’s More Repetition</h3><p><img src="9.jpg" alt=""></p>
+<p>Common playtests (especially small sets) just don’t have as many cards as a full set will have. This means you’ll see the same cards more often. One of the rules I always use is what I call the “Take Two” rule. The Take Two rule says that you should not play more than two of the same card (unless there’s some element of the set that is trying to get you to strategically play more—think the ripple mechanic from Coldsnap). If you get more than two copies of a card, I let players trade back cards for random cards of the same color.</p>
+<p>The biggest lesson, though, is this: An all-common playtest is not about the environment. Not yet. The initial playtests are about getting a feel of the individual cards and mechanics. As you iterate and start molding the common cards, the environment will start to form, but that should not be your focus in early playtesting. Your initial job is figuring out what pieces are working.</p>
+<p>Another tip I’ll give for the early playtests is this: Make sure your playtesters don’t just play to win. The environment isn’t balanced yet. The goal in the early playtests is to experience and to learn. To do that, you have to play with all the cards, which means you have to actively track down things you haven’t tried before. A common trick I’ll do is to either assign colors to playtesters to ensure every color gets played or require the playtesters not play with the color combinations they played with before. Also, encourage your playtesters to experiment.</p>
+<h2 id="Final-Notes"><a href="#Final-Notes" class="headerlink" title="Final Notes"></a>Final Notes</h2><p>Before I wrap up for today, a few final things I’d like to point out:</p>
+<ul>
+<li>Early playtesting is not as fun as normal Magic: There is a great thrill to trying out things for the first time, but make sure your playtesters don’t judge the fun of the playtest against normal Magic. As I pointed out above, the all-common playtests leaves out a lot of things that make actual Magic fun.</li>
+<li>Take notes: There’s a lot going on and it’s crucial that you capture as much data as you can. I always have a notepad so playtesters can yell out comments as they happen. Seriously, it is crucial you write your notes down as they happen. Also, R&amp;D always follows up playtests by having each player write up a short description of his or her playtest experience.</li>
+<li>Push for more design comments than development comments: If a card is overcosted, that’s fine to jot down, but the key to the early playtests is figuring out the design elements. Whether something is fun to play is far more important than how it will play in Standard. Yes, at some point, you will need that information, but these playtests are just too early for it.</li>
+<li>Iterate, iterate, iterate: See my list up above. After a playtest or two, take notes and figure out what you can improve. Then improve it before you play again.</li>
+<li>Also, playtest, playtest, playtest: Another common danger is designers talking endlessly about a card file rather than sitting down and playing it. Nothing is going to help you better figure out what needs to get done than playing with the cards. You aren’t designing a car without driving it, and you aren’t going to make a card set without playing it.<br>Aw Nuts (and Bolts)</li>
+</ul>
+<p>That’s all I have for you today. I hope you enjoyed my yearly jaunt through Design 101. As always, I am eager to get feedback on today’s column through my email, this column’s thread, or any of my social media (Twitter, Tumblr, and Google+).</p>
+<p>Join me next week when I explain how to improve upon nature.</p>
+<p>Until then, may you have a playtest where your notebook fills up.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/AcademyRuins/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" rel="tag"># 游戏设计</a>
+              <a href="/AcademyRuins/tags/%E9%AD%94%E6%B3%95%E8%AE%BE%E8%AE%A1%E9%99%A2/" rel="tag"># 魔法设计院</a>
+              <a href="/AcademyRuins/tags/%E8%9E%BA%E6%AF%8D%E5%92%8C%E8%9E%BA%E6%A0%93%EF%BC%88%E5%9F%BA%E6%9C%AC%E8%A6%81%E7%B4%A0%EF%BC%89/" rel="tag"># 螺母和螺栓（基本要素）</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/AcademyRuins/do-math-play-better/" rel="prev" title="算得好，卷得多">
+      <i class="fa fa-chevron-left"></i> 算得好，卷得多
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/AcademyRuins/creating-magic/" rel="next" title="发明万智牌之路">
+      发明万智牌之路 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#材料汇总"><span class="nav-number">1.</span> <span class="nav-text">材料汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏观规划"><span class="nav-number">2.</span> <span class="nav-text">宏观规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#粘合剂"><span class="nav-number">3.</span> <span class="nav-text">粘合剂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Quirks-of-an-All-Common-Playtest"><span class="nav-number">4.</span> <span class="nav-text">The Quirks of an All-Common Playtest</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-It’s-Harder-to-Come-Back"><span class="nav-number">4.1.</span> <span class="nav-text">#1: It’s Harder to Come Back</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-There’re-More-Stalemates"><span class="nav-number">4.2.</span> <span class="nav-text">#2: There’re More Stalemates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-The-Game-Play-is-More-Generic"><span class="nav-number">4.3.</span> <span class="nav-text">#3: The Game Play is More Generic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-There’s-More-Repetition"><span class="nav-number">4.4.</span> <span class="nav-text">#4: There’s More Repetition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final-Notes"><span class="nav-number">5.</span> <span class="nav-text">Final Notes</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/AcademyRuins/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/AcademyRuins/lib/anime.min.js"></script>
+  <script src="/AcademyRuins/lib/velocity/velocity.min.js"></script>
+  <script src="/AcademyRuins/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/AcademyRuins/js/utils.js"></script>
+
+<script src="/AcademyRuins/js/motion.js"></script>
+
+
+<script src="/AcademyRuins/js/schemes/muse.js"></script>
+
+
+<script src="/AcademyRuins/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
